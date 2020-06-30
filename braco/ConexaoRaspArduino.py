@@ -28,6 +28,3 @@ def enviar(teta1, teta2):
         print("Conexão encerrada")
     else:
         print("Sem portas disponíveis")
-
-
-enviar(30, 90)

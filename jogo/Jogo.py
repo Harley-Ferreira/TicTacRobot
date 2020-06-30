@@ -1,29 +1,56 @@
 from jogo.LogicaDoJogo import *
+from inteligicia_articial.MinimaxEasy import *
+from inteligicia_articial.MinimaxHard import *
 
-jogador = 0
-
-# INSTÂNCIA DAS FUNÇÕES
-matriz = tabuleiro()
+jogador = 1
+matriz = criarmatriz()
 ganhador = verificaGanhador(matriz)
+print("1- Fácil\n2- Impossível")
+level = int(input("Escolha uma dificuldade dentre as opções: "))
 
-# ENQUANTO NINGUEM GANHAR, EXECUTA
-while not ganhador:
-    # EXIBE O JOGO
-    printTabu(matriz)
+if level == 1:
+    while not ganhador:
+        printmatriz(matriz)
+        print("===================")
+        if jogador == 0:
+            i, j = movimentoIAE(matriz, jogador)
+        else:
+            i = getInputValido("Digite a linha: ")
+            j = getInputValido("Digite a coluna: ")
 
-    # ESCOLHE A LINHA E COLUNA DA PEÇA
-    i = saidaValida("Digite a linha: ")
-    j = saidaValida("Digite a coluna: ")
+        if (verificaMovimento(matriz, i, j)):
+            fazMovimento(matriz, i, j, jogador)
+            jogador = (jogador + 1) % 2
+        else:
+            print("A posicao informado ja esta ocupada")
 
-    # VERIFICA O MOVIMENTO PARA SABER SE É VALIDO, ENTÃO ELE EXECUTA
-    if verificaMovimento(matriz, i, j):
-        fazMovimento(matriz, i, j, jogador)
-        # SE O JOGADOR FOR 0 => (0 + 1)%2 = 1%2 = 1
-        # SE O JOGADOR FOR 1 => (1 + 1)%2 = 2%2 = 0
-        jogador = (jogador + 1) % 2
-    else:
-        print("Jogada Inválida")
-    ganhador = verificaGanhador(matriz)
+        ganhador = verificaGanhador(matriz)
 
-printTabu(matriz)
-print("Ganhador = ", ganhador)
+    print("===================")
+    printmatriz(matriz)
+    print("Ganhador = ", ganhador)
+    print("===================")
+elif level == 2:
+    while not ganhador:
+        printmatriz(matriz)
+        print("===================")
+        if jogador == 0:
+            i,j = movimentoIAH(matriz, jogador)
+        else:
+            i = getInputValido("Digite a linha: ")
+            j = getInputValido("Digite a coluna: ")
+
+        if(verificaMovimento(matriz, i, j)):
+            fazMovimento(matriz, i, j, jogador)
+            jogador = (jogador + 1)%2
+        else:
+            print("A posicao informado ja esta ocupada")
+
+        ganhador = verificaGanhador(matriz)
+
+    print("===================")
+    printmatriz(matriz)
+    print("Ganhador = ", ganhador)
+    print("===================")
+else:
+    pass
